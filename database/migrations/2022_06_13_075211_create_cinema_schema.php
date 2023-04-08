@@ -36,7 +36,65 @@ class CreateCinemaSchema extends Migration
      */
     public function up()
     {
-        throw new \Exception('implement in coding task 4, you can ignore this exception if you are just running the initial migrations.');
+        Schema::create('films', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->longText('description');
+            $table->timestamp();
+        });
+        Schema::create('shifts', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamp('start_time');
+            $table->timestamp('end_time');
+            $table->timestamp();
+        });
+        Schema::create('film_shifts', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedInteger('film_id');
+            $table->unsignedInteger('shift_id'); 
+            $table->double('price_per_show'); 
+            $table->timestamp();
+        });
+        Schema::create('showrooms', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->longText('description');
+            $table->timestamp();
+        });
+        Schema::create('seat_types', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->double('percentage');
+            $table->timestamp();
+        });
+
+        Schema::create('seats', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedInteger('showroom_id');
+            $table->unsignedInteger('seat_type_id');
+            $table->string('row');
+            $table->integer('number');
+            $table->timestamp();
+        });
+
+        Schema::create('booked_seats', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedInteger('seat_id');
+            $table->unsignedInteger('shift_id'); 
+            $table->timestamp();
+        });
+
+        Schema::create('booking', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedInteger('booked_seat_id');
+            $table->double('amount');
+
+            $table->timestamp();
+        });
+
+
+        
     }
 
     /**

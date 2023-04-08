@@ -7,4 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
+    public function workshop()
+    {
+        return $this->hasMany(Workshop::class,'event_id');
+    }
+    public function scopeFutureEvents($query)
+    {
+    }
 }
